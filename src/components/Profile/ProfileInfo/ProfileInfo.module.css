@@ -1,0 +1,7 @@
+.content {
+    grid-area: content;
+  }
+
+.descriptionBlock {
+    padding: 10px;
+}
