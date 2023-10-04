@@ -22,9 +22,7 @@ const Profile = (props) => {
             <ProfileInfo/>
             <MyPosts posts={props.posts}
                      // newPostText={props.profilePage.newPostText}
-                testA = {props.test}
-                addPost={ props.addPost }
-                updatePost={props.updatePost}
+                     dispatch = {props.dispatch}
             />
         </div>
     );

@@ -32,15 +32,13 @@ const App = (props) => {
                     {/*<Route path="/dialogs" element={<Dialogs dialog={{props.dialogs}}/>}/>*/}
                     <Route path="/dialogs" element={
                         <Dialogs dialogs={props.state.messagessPage.dialogs}
-                                 messagess={props.state.messagessPage.messagess}/>
+                                 messagess={props.state.messagessPage.messagess}
+                                 store={props.store}/>
                     }/>
                     {/*<Route path="/dialogs" render={() => <Dialogs dialogsData={props.dialogsData} />} />*/}
                     <Route path="/profile" element={
                         <Profile posts={props.state.profilePage.posts}
-                                 // newPostText={props.profilePage.newPostText}
-                                test={props.state.profilePage.newPostText}
-                                 addPost={props.addPost}
-                                 updatePost={props.updatePost} />
+                                 dispatch={props.dispatch}/>
                     }/>
                 </Routes>
 

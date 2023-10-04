@@ -12,6 +12,20 @@ import Post from './Post/Post';
 //     <Post key={p.id} message={p.message} likesCounter={p.likeCount} />
 // ));
 
+let addPostActionCreator = () => {
+    const ADD_POST = 'ADD-POST';
+    return {
+        type: ADD_POST
+    }
+}
+
+let updateNewPostTextActionCreator = (text) => {
+    const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText: text
+    }
+}
 
 const MyPosts = (props) => {
 //     let posts = [
@@ -29,7 +43,7 @@ const MyPosts = (props) => {
     let addPost = () => {
         // debugger;
         let text = newPostElement.current.value;
-        props.addPost(text)
+        props.dispatch(addPostActionCreator())
         // newPostElement.current.value = '';
         // props.updatePost('');
     }
@@ -37,7 +51,9 @@ const MyPosts = (props) => {
     let onPostChange = () => {
         let text = newPostElement.current.value;
         console.log(text);
-        props.updatePost(text);
+        let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text};
+        props.dispatch(updateNewPostTextActionCreator(text));
+
     }
 
     // debugger;
@@ -48,7 +64,6 @@ const MyPosts = (props) => {
             <div>
                 <div>
                      <textarea ref={newPostElement}
-                               value={props.testA}
                                onChange={onPostChange}/>
                 </div>
                 <div>
