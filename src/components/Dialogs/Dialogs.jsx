@@ -2,23 +2,7 @@ import styles from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 import DialogItems from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/state";
-
-// let dialogs = [
-//     {id: 1, name: 'Dimych1'},
-//     {id: 2, name: 'Dimych2'},
-//     {id: 3, name: 'Dimych3'},
-//     {id: 4, name: 'Dimych4'},
-//     {id: 5, name: 'Dimych5'},
-//     {id: 6, name: 'Dimych6'},
-// ]
-//
-// let messagess = [
-//     {id: 1, message: 'Hi!'},
-//     {id: 1, message: 'Lorem!'},
-//     {id: 1, message: 'YO!'},
-//     {id: 1, message: 'YO!'},
-// ]
+import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
 
 const Dialogs = (props) => {
     // debugger;
@@ -32,22 +16,22 @@ const Dialogs = (props) => {
     ));
     let newMessageBody = props.newMessagesBody;
 
-    const sendMessageActionCreator = (body) => {
-        const SEND_MESSAGE = 'SEND-MESSAGE';
-        return {
-            type: SEND_MESSAGE,
-            newMessagesBody: body
-        }
-    }
-
-    const updateNewMessageTextActionCreator = (body) => {
-        const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-
-        return {
-            type: UPDATE_NEW_MESSAGE_BODY,
-            newMessagesBody: body
-        }
-    }
+    // const sendMessageActionCreator = (body) => {
+    //     const SEND_MESSAGE = 'SEND-MESSAGE';
+    //     return {
+    //         type: SEND_MESSAGE,
+    //         newMessagesBody: body
+    //     }
+    // }
+    //
+    // const updateNewMessageTextActionCreator = (body) => {
+    //     const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+    //
+    //     return {
+    //         type: UPDATE_NEW_MESSAGE_BODY,
+    //         newMessagesBody: body
+    //     }
+    // }
 
     let onSendMessageClick = () => {
         props.store.dispatch(sendMessageActionCreator());
@@ -56,7 +40,6 @@ const Dialogs = (props) => {
     let onNewMessageChange = (e) => {
         let body = e.target.value;
         console.log(body);
-        // console.log(updateNewMessageTextActionCreator(body));
         props.store.dispatch(updateNewMessageTextActionCreator(body));
     }
 
