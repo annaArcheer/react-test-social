@@ -1,6 +1,7 @@
 import s from './Profile.module.css';
 import MyPosts from './../Profile/MyPosts/MyPosts'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
 // let postsData = [
@@ -15,15 +16,13 @@ const Profile = (props) => {
     //     {id: 1, message: 'It\'s my first post', likeCount: 36},
     //     {id: 1, message: 'Some message', likeCount: 0},
     // ]
+    // debugger;
 
     return (
         <div className={s.content}>
             {/*debugger;*/}
             <ProfileInfo/>
-            <MyPosts posts={props.posts}
-                     // newPostText={props.profilePage.newPostText}
-                     dispatch = {props.dispatch}
-            />
+            <MyPostsContainer store={props.store}/>
         </div>
     );
 }

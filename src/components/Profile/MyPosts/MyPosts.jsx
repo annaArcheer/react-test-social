@@ -11,17 +11,16 @@ const MyPosts = (props) => {
 
     let newPostElement = React.createRef();
 
-    let addPost = () => {
+    let onAddPost = () => {
         // debugger;
-        let text = newPostElement.current.value;
-        props.dispatch(addPostActionCreator())
+        props.addPost();
     }
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        console.log(text);
-        let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text};
-        props.dispatch(updateNewMessageBodyActionCreator(text));
+        // console.log(text);
+        props.updateNewPostText(text);
+
 
     }
 
@@ -36,7 +35,7 @@ const MyPosts = (props) => {
                                onChange={onPostChange}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add Post</button>
+                    <button onClick={onAddPost}>Add Post</button>
                     <button>Remove Post</button>
                 </div>
             </div>

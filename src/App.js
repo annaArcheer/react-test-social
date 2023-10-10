@@ -5,6 +5,7 @@ import Profile from './components/Profile/Profile'
 import Dialogs from './components/Dialogs/Dialogs'
 
 import {Route, Routes} from "react-router";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = (props) => {
     // let posts = [
@@ -31,14 +32,11 @@ const App = (props) => {
                 <Routes>
                     {/*<Route path="/dialogs" element={<Dialogs dialog={{props.dialogs}}/>}/>*/}
                     <Route path="/dialogs" element={
-                        <Dialogs dialogs={props.state.messagessPage.dialogs}
-                                 messagess={props.state.messagessPage.messagess}
-                                 store={props.store}/>
+                        <DialogsContainer store={props.store}/>
                     }/>
                     {/*<Route path="/dialogs" render={() => <Dialogs dialogsData={props.dialogsData} />} />*/}
                     <Route path="/profile" element={
-                        <Profile posts={props.state.profilePage.posts}
-                                 dispatch={props.dispatch}/>
+                        <Profile store={props.store}/>
                     }/>
                 </Routes>
 
