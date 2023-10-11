@@ -5,18 +5,17 @@ import ReactDOM from "react-dom/client";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import StoreContext from "./StoreContext";
+import StoreContext, {Provider} from "./StoreContext";
+// import {Provider} from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let rerenderedEntireTree = (state) => (
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <StoreContext.Provider value={store}>
-                    <App state={state}
-                         dispatch={store.dispatch.bind(store)}
-                         store={store}/>
-                </StoreContext.Provider>
+                <Provider store={store}>
+                    <App />
+                </Provider>
             </BrowserRouter>
         </React.StrictMode>
     )
