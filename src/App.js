@@ -5,6 +5,7 @@ import Profile from './components/Profile/Profile'
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 
 import {Route, Routes} from "react-router";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = () => {
 
@@ -23,6 +24,9 @@ const App = () => {
                     {/*<Route path="/dialogs" render={() => <Dialogs dialogsData={props.dialogsData} />} />*/}
                     <Route path="/profile" element={
                         <Profile />
+                    }/>
+                    <Route path="/users" element={
+                        <UsersContainer />
                     }/>
                 </Routes>
 
