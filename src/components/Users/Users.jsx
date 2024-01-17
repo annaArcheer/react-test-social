@@ -1,26 +1,38 @@
 import styles from './users.module.css';
-import axios from "axios";
 import userPhoto from "../../assets/images/user.png";
+import {NavLink} from "react-router-dom";
 
 let Users = (props) => {
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
 
-    if (props.users.length === 0) {
-
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                // debugger;
-                props.setUsers(response.data.items);
-                console.log(response.data);
-
-            })
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
 
     return <div>
+        <div>
+            {pagesCount}
+            {pages.map(p => {
+                // debugger;
+                return <span className={props.currentPage === p && styles.selectedBtn}
+                             onClick={(e) => {
+                                 props.onPageChanged(p)
+                             }}>{p}</span>
+            })}
+        </div>
+        <button onClick={props.getUsers}>Get USERS</button>
         {props.users.map(u => <div key={u.id}>
             <div>
-                <div><img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}
-                          alt=""/></div>
+
                 <div>
+                    <NavLink to={'/propfile/' + u.id}>
+                        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}
+                             alt=""/>
+                    </NavLink>
+                </div>
+                <div>
+
                     {u.followed
                         ? <button onClick={() => {
                             props.unfollow(u.id)

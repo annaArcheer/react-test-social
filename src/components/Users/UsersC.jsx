@@ -1,13 +1,29 @@
-import styles from './users.module.css';
 import axios from "axios";
-import userPhoto from "../../assets/images/user.png";
 import React from "react";
+import Users from "./Users";
+import Preloader from "../Preloader/Preloader";
 
-class Users extends React.Component {
+class UsersAPIComponent extends React.Component {
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        this.props.toggleIsFetching(true);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 // debugger;
+                this.props.toggleIsFetching(false);
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount);
+                console.log(response.data);
+
+            })
+    }
+
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber);
+        this.props.toggleIsFetching(true);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                debugger;
+                this.props.toggleIsFetching(false);
                 this.props.setUsers(response.data.items);
                 console.log(response.data);
 
@@ -20,44 +36,24 @@ class Users extends React.Component {
         }
         console.log('button');
     }
+
     render() {
-        return <div>
-            <div>
-                <span>1</span>
-                <span className={styles.selectedBtn}>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
-            </div>
-            <button onClick={this.getUsers}>Get USERS</button>
-            {this.props.users.map(u => <div key={u.id}>
-                <div>
-                    <div><img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}
-                              alt=""/></div>
-                    <div>
-                        {u.followed
-                            ? <button onClick={() => {
-                                this.props.unfollow(u.id)
-                            }}>Unfollow</button>
-                            : <button onClick={() => {
-                                this.props.follow(u.id)
-                            }}>Follow</button>
-                        }
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <div>{u.name}</div>
-                        <div>{u.status}</div>
-                    </div>
-                    <div>
-                        <div>{'u.location.country'}</div>
-                        <div>{'u.location.city'}</div>
-                    </div>
-                </div>
-            </div>)}
-        </div>
+
+
+        return <>
+            {this.props.isFetching ? <Preloader/> : null}
+            <Users totalUsersCount={this.props.totalUsersCount}
+                   pageSize={this.props.pageSize}
+                   currentPage={this.props.currentPage}
+                   onPageChanged={this.onPageChanged}
+                   users={this.props.users}
+                   follow={this.props.follow}
+                   unfollow={this.props.unfollow}
+                   getUsers={this.getUsers}
+            />
+        </>
+
     }
 }
 
-export default Users;
+export default UsersAPIComponent;
